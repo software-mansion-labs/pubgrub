@@ -237,3 +237,4 @@ pub use version_set::VersionSet;
 mod internal;
 
 pub use internal::State;
+pub use internal::Incompatibility;

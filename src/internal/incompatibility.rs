@@ -28,7 +28,7 @@ use crate::{
 /// during conflict resolution. More about all this in
 /// [PubGrub documentation](https://github.com/dart-lang/pub/blob/master/doc/solver.md#incompatibility).
 #[derive(Debug, Clone)]
-pub(crate) struct Incompatibility<P: Package, VS: VersionSet, M: Eq + Clone + Debug + Display> {
+pub struct Incompatibility<P: Package, VS: VersionSet, M: Eq + Clone + Debug + Display> {
     package_terms: SmallMap<P, Term<VS>>,
     kind: Kind<P, VS, M>,
 }
@@ -93,7 +93,7 @@ pub(crate) enum Relation<P: Package> {
 
 impl<P: Package, VS: VersionSet, M: Eq + Clone + Debug + Display> Incompatibility<P, VS, M> {
     /// Create the initial "not Root" incompatibility.
-    pub(crate) fn not_root(package: P, version: VS::V) -> Self {
+    pub fn not_root(package: P, version: VS::V) -> Self {
         Self {
             package_terms: SmallMap::One([(
                 package.clone(),
