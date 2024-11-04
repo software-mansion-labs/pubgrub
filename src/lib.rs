@@ -235,3 +235,5 @@ pub use version_ranges::Ranges as Range;
 pub use version_set::VersionSet;
 
 mod internal;
+
+pub use internal::State;

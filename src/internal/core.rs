@@ -14,7 +14,7 @@ use crate::{DependencyProvider, DerivationTree, Map, NoSolutionError, VersionSet
 
 /// Current state of the PubGrub algorithm.
 #[derive(Clone)]
-pub(crate) struct State<DP: DependencyProvider> {
+pub struct State<DP: DependencyProvider> {
     root_package: DP::P,
     root_version: DP::V,
 
@@ -46,7 +46,7 @@ pub(crate) struct State<DP: DependencyProvider> {
 
 impl<DP: DependencyProvider> State<DP> {
     /// Initialization of PubGrub state.
-    pub(crate) fn init(root_package: DP::P, root_version: DP::V) -> Self {
+    pub fn init(root_package: DP::P, root_version: DP::V) -> Self {
         let mut incompatibility_store = Arena::new();
         let not_root_id = incompatibility_store.alloc(Incompatibility::not_root(
             root_package.clone(),
@@ -67,7 +67,7 @@ impl<DP: DependencyProvider> State<DP> {
     }
 
     /// Add an incompatibility to the state.
-    pub(crate) fn add_incompatibility(&mut self, incompat: Incompatibility<DP::P, DP::VS, DP::M>) {
+    pub fn add_incompatibility(&mut self, incompat: Incompatibility<DP::P, DP::VS, DP::M>) {
         let id = self.incompatibility_store.alloc(incompat);
         self.merge_incompatibility(id);
     }
@@ -98,7 +98,7 @@ impl<DP: DependencyProvider> State<DP> {
 
     /// Unit propagation is the core mechanism of the solving algorithm.
     /// CF <https://github.com/dart-lang/pub/blob/master/doc/solver.md#unit-propagation>
-    pub(crate) fn unit_propagation(&mut self, package: DP::P) -> Result<(), NoSolutionError<DP>> {
+    pub fn unit_propagation(&mut self, package: DP::P) -> Result<(), NoSolutionError<DP>> {
         self.unit_propagation_buffer.clear();
         self.unit_propagation_buffer.push(package);
         while let Some(current_package) = self.unit_propagation_buffer.pop() {
