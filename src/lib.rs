@@ -225,7 +225,7 @@ pub use report::{
     DefaultStringReportFormatter, DefaultStringReporter, DerivationTree, Derived, External,
     ReportFormatter, Reporter,
 };
-pub use solver::{resolve, Dependencies, DependencyProvider, OfflineDependencyProvider};
+pub use solver::{resolve, resolve_state, Dependencies, DependencyProvider, OfflineDependencyProvider};
 pub use term::Term;
 pub use type_aliases::{DependencyConstraints, Map, SelectedDependencies, Set};
 pub use version::{SemanticVersion, VersionParseError};

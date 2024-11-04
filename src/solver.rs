@@ -78,6 +78,15 @@ pub fn resolve<DP: DependencyProvider>(
     version: impl Into<DP::V>,
 ) -> Result<SelectedDependencies<DP>, PubGrubError<DP>> {
     let mut state: State<DP> = State::init(package.clone(), version.into());
+    resolve_state(dependency_provider, &mut state, package)
+}
+
+/// Solve pre-initialized state.
+pub fn resolve_state<DP: DependencyProvider>(
+    dependency_provider: &DP,
+    state: &mut State<DP>,
+    package: DP::P,
+) -> Result<SelectedDependencies<DP>, PubGrubError<DP>> {
     let mut added_dependencies: Map<DP::P, Set<DP::V>> = Map::default();
     let mut next = package;
     loop {
